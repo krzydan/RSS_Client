@@ -1,4 +1,4 @@
-package rss_Klient;
+package rss_Client;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.swt.*;
@@ -59,7 +59,7 @@ import org.jsoup.*;
 
 import models.Account;
 
-//many widgets under a box
+
 public class Main {
 
 	
@@ -69,7 +69,6 @@ public class Main {
     }
 
 	public static void main(String[] args) {
-		//jeśli istnieje plik JSON na dysku to wgrac odpowiednie obiekty do bazy i go skasowac - jak starczy czasu
 		
 		Display display = new Display ();
 		Shell shell = new Shell (display);
@@ -225,7 +224,7 @@ public class Main {
 	}
 	
 	
-	public static String hash(String password) {
+	public static String hash(String password) { //hashing the password user created
 	    try {
 	        MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
 	        String salt = "some_random_salt";

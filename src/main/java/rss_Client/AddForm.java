@@ -1,4 +1,4 @@
-package rss_Klient;
+package rss_Client;
 
 import java.io.BufferedReader;
 import java.io.IOException;

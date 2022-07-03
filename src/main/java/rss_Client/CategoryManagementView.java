@@ -1,4 +1,4 @@
-package rss_Klient;
+package rss_Client;
 
 
 import java.util.ArrayList;
@@ -164,60 +164,8 @@ public class CategoryManagementView extends Main{
 					
 				}
 			});
-			/*Menu menu=new Menu(table);
-			{
-			MenuItem mi1=new MenuItem(menu, SWT.NONE);
-			mi1.setText("DODAJ");
-			mi1.addSelectionListener(new SelectionAdapter() {
-				
-				@Override
-				public void widgetSelected(SelectionEvent arg0) {
-					AdresKlientaAddEditForm paef=new AdresKlientaAddEditForm(FormDataMode.ADD,null);
-					paef.initGui();
-					loadDataToTable();
-				}
-				
-			});
-			}
-
-			MenuItem mi2=new MenuItem(menu, SWT.NONE);
-			mi2.setText("EDYTUJ");
-			mi2.addSelectionListener(new SelectionAdapter() {
-
-				@Override
-				public void widgetSelected(SelectionEvent arg0) {
-					AdresKlientaAddEditForm paef=new AdresKlientaAddEditForm(FormDataMode.EDIT,(AdresKlienta)table.getSelection()[0].getData(DataForm.DATA_OBJECT));
-					paef.initGui();
-
-					
-					loadDataToTable();
-				
-				}
-			});
-			
-			{
-			MenuItem mi1=new MenuItem(menu, SWT.NONE);
-			mi1.setText("USUN");
-			mi1.addSelectionListener(new SelectionAdapter() {
-				
-				@Override
-				public void widgetSelected(SelectionEvent arg0) {
-					MessageBox mb=new MessageBox(shell,SWT.YES+SWT.NO);
-					mb.setMessage("Czy na pewno chcesz usun�� obiekt?");
-					if(mb.open()==SWT.YES){
-						new Controller().removeObject((AdresKlienta)table.getSelection()[0].getData(DataForm.DATA_OBJECT));
-						loadDataToTable();
-					}
-				}
-				
-			});
-			}
-
-			table.setMenu(menu);
-*/
 			
 			shell.open ();
-			//shell.setMaximized(true);
 			loadDataToTable(categoriesArray);
 			while (!shell.isDisposed ()) {
 				if (!display.readAndDispatch ()) 

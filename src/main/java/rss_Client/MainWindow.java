@@ -1,4 +1,4 @@
-package rss_Klient;
+package rss_Client;
 
 import static org.apache.commons.lang3.StringEscapeUtils.unescapeHtml4;
 
@@ -115,12 +115,6 @@ public class MainWindow extends Main{
     	item.setAccelerator (SWT.MOD1 + 'M');
     
         loadNewsChannels(target);
-
-		//readRSS("http://rss.cnn.com/rss/edition.rss");
-		//readRSS("https://www.cdaction.pl/rss_newsy.xml");
-		//readRSS("https://www.tvn24.pl/najnowsze.xml");
-		
-		
 	
 		loadNews(bar);
 
@@ -131,31 +125,11 @@ public class MainWindow extends Main{
 			if (!display.readAndDispatch ()) display.sleep ();
 		}
 		display.dispose ();
-	
-		
-		//
-		//readRSS("https://www.cdaction.pl/rss_newsy.xml");
-		//readRSS("https://www.eurogamer.pl/?format=rss");
-		
-		//readRSS("https://fakty.interia.pl/feed");
-		//kategorie
-		//readRSS("https://oko.press/feed");		
-		//readRSS("http://www.rfi.fr/general/rss");
-		
 
-		//zly odczyt
-		//readRSS("http://feeds.feedburner.com/niebezpiecznik?format=xml");
 				
-		for (int i =0; i <newsList.size();i++)
-		{
-			//System.out.println(newsList.get(i).getTitle());
-			//System.out.println(newsList.get(i).getDescription());
-			//System.out.println(newsList.get(i).getCategory());
-			//System.out.println(newsList.get(i).getChannel());
-		}
 	}
 	
-	private void loadNewsChannels(WebTarget target) { //wczytanie kanalow do tablicy
+	private void loadNewsChannels(WebTarget target) {//loading channels to an array
 		try{
 			 String response = target.path("rest").path("user").path("channels").queryParam("login", login).request().accept(MediaType.APPLICATION_JSON).get(String.class);
 
@@ -197,7 +171,7 @@ public class MainWindow extends Main{
 			titles = new ArrayList<String>();
 			String[] newsArray = sourceCode.split("<item>");
 			String channel = getTag(newsArray[0],"title");
-			for (int i = 1; i <newsArray.length;i++)  // indeks od 1, ponieważ 0 to informacje o kanale
+			for (int i = 1; i <newsArray.length;i++)  // looping from 1 because i=0 are informations about the channel
 			{
 
 				News news = new News();
@@ -227,14 +201,14 @@ public class MainWindow extends Main{
 	}
 	
 	
-	public static String getTag(String text, String tag)//funkcja zwraca tekst pomiedzy znacznikami 
+	public static String getTag(String text, String tag)//the funtion returns text between tags
 	{
 			
 			String tempTag="";
 			if (tag=="img")
 			{
 				tempTag="img";
-				tag="description"; //ponieważ link do zdjecia znajduje sie w znaczniku description
+				tag="description"; //link to the picture is contained in description tag
 				if(text.contains("media:group")) 
 					{
 							tag = "media:group";
@@ -248,18 +222,14 @@ public class MainWindow extends Main{
 			{
 				return result;
 			}
-			if (StringUtils.countMatches(text, "<"+tag+">")>1)
-			{
-				//System.out.println(StringUtils.countMatches(text, "<"+tag+">"));
-			}
+
 			result =  text.substring(firstPos);
-			//kategoria może wystapic kilka razy
+			//one category may show up multiple times
 
 			result = result.replaceFirst("<"+tag+">", "");
 			if(tag=="category") result = result.replace("<"+tag+">", ";");
 			int lastPos = result.lastIndexOf("</"+tag+">");
 			result = result.substring(0, lastPos);
-			//System.out.println(result);
 			
 			if (tag =="title"||tag=="description"||tag=="category"||tag == "media:group")
 				{result= result.replace("]]>", "").replace("<![CDATA[", "");
@@ -270,7 +240,7 @@ public class MainWindow extends Main{
 			return result;
 
 	}
-	public static String getImgURL(String tempTag, String tag, String result) // funkcja pozyskuje adres URL pierwszego obrazka dołączonego do wiadomości
+	public static String getImgURL(String tempTag, String tag, String result) // function gest URL of the first image from the post
 	{
 		try 
 		{
@@ -287,7 +257,6 @@ public class MainWindow extends Main{
 					};
 				}
 				result=result.replace("src=", "").replaceAll("\"", "");
-				//System.out.println(result);
 			}
 			else if(tempTag == "media:content")
 			{
